@@ -92,7 +92,7 @@ version. X25519-MLKEM768 is only supported in BoringSSL and OpenSSL 3.5+.
 #### API Additions
 
 In addition, the negotiated key exchange group will be made available on the
-`AuthContext` and the `CustomVerificationCheckRequest`.
+`AuthContext` and the `TlsCustomVerificationCheckRequest`.
 
 ```c++
 typedef struct grpc_tls_custom_verification_check_request {
