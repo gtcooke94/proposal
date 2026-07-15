@@ -89,6 +89,29 @@ version. X25519-MLKEM768 is only supported in BoringSSL and OpenSSL 3.5+.
 | OpenSSL < 3 | {X25519, P-256, P-384, P-521} with `SSL_CTX_set1_groups`/`SSL_CTX_set1_curves` |
 | OpenSSL 3+ | (Use OpenSSL defaults):<br> < 3.5 {X25519, P-256, P-384, P-521},<br> 3.5+ {X25519-MLKEM768, …} |
 
+#### API Additions
+
+In addition, the negotiated key exchange group will be made available on the
+`AuthContext` and the `CustomVerificationCheckRequest`.
+
+```c++
+typedef struct grpc_tls_custom_verification_check_request {
+  // ...
+  const char *negotiated_key_exchange_group;
+  // ...
+}
+
+#define GRPC_SSL_NEGOTIATED_KEY_EXCHANGE_GROUP_PROPERTY_NAME \
+  "ssl_negotiated_key_exchange_group"
+
+class TlsCustomVerificationCheckRequest {
+ public:
+  // ...
+  grpc::string_ref negotiated_key_exchange_group() const;
+  // ...
+}
+```
+
 ### Go
 
 In Golang, the `crypto/tls` library is part of the core language, and as of Go
